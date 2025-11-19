@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogiSync - Transformamos ideias em resultados digitais reais</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00f5ff, #00ff88, #0084ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .neon-border {
+            border: 2px solid #00f5ff;
+            box-shadow: 0 0 10px #00f5ff, inset 0 0 10px rgba(0, 245, 255, 0.1);
+        }
+        
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.5), 0 0 40px rgba(0, 255, 136, 0.3);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.8), 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+        
+        .bg-grid {
+            background-image: 
+                linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .orbit-icon {
+            animation: orbit 20s linear infinite;
+        }
+        
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 245, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+        
+        .card-hover:hover::before {
+            left: 100%;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #00f5ff, #00ff88);
+            color: #0a0e27;
+            font-weight: 700;
+            padding: 14px 32px;
+            border-radius: 50px;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.8), 0 0 50px rgba(0, 255, 136, 0.5);
+        }
+        
+        .btn-secondary {
+            border: 2px solid #00f5ff;
+            color: #00f5ff;
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 245, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #00f5ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5));
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            background: #00f5ff;
+            border-radius: 50%;
+            animation: particleFloat 15s infinite;
+        }
+        
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+        
+        .header-sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 14, 39, 0.9);
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu {
+            display: none;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        input, textarea {
+            background: rgba(0, 245, 255, 0.05);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #00f5ff;
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-sticky border-b border-cyan-500/20">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-green-400 rounded-lg flex items-center justify-center neon-glow">
+                        <span class="text-2xl font-black orbitron text-gray-900">LS</span>
+                    </div>
+                    <span class="text-2xl font-black orbitron gradient-text">LogiSync</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="hover:text-cyan-400 transition">Home</a>
+                    <a href="#servicos" class="hover:text-cyan-400 transition">Serviços</a>
+                    <a href="#projetos" class="hover:text-cyan-400 transition">Projetos</a>
+                    <a href="#sobre" class="hover:text-cyan-400 transition">Sobre Nós</a>
+                    <a href="#contato" class="hover:text-cyan-400 transition">Contato</a>
+                    <button onclick="window.location.href='#contato'" class="btn-primary text-sm">
+                        Solicite sua solução agora
+                    </button>
+                </div>
+                
+                <button id="mobile-toggle" class="md:hidden text-cyan-400 text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div id="mobile-menu" class="mobile-menu md:hidden mt-4 space-y-4 pb-4">
+                <a href="#home" class="block hover:text-cyan-400 transition">Home</a>
+                <a href="#servicos" class="block hover:text-cyan-400 transition">Serviços</a>
+                <a href="#projetos" class="block hover:text-cyan-400 transition">Projetos</a>
+                <a href="#sobre" class="block hover:text-cyan-400 transition">Sobre Nós</a>
+                <a href="#contato" class="block hover:text-cyan-400 transition">Contato</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div class="bg-grid absolute inset-0"></div>
+        <div class="particles" id="particles"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center max-w-5xl mx-auto">
+                <div class="mb-8 relative">
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <div class="relative w-96 h-96 hidden lg:block">
+                            <div class="orbit-icon absolute" style="animation-delay: 0s;">
+                                <i class="fas fa-code text-4xl text-cyan-400"></i>
+                            </div>
+                            <div class="orbit-icon absolute" style="animation-delay: -5s;">
+                                <i class="fas fa-mobile-alt text-4xl text-green-400"></i>
+                            </div>
+                            <div class="orbit-icon absolute" style="animation-delay: -10s;">
+                                <i class="fas fa-brain text-4xl text-purple-400"></i>
+                            </div>
+                            <div class="orbit-icon absolute" style="animation-delay: -15s;">
+                                <i class="fas fa-chart-line text-4xl text-blue-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="inline-block bg-cyan-500/20 border-2 border-cyan-500 rounded-full px-6 py-2 mb-6">
+                    <p class="text-cyan-400 font-bold flex items-center justify-center">
+                        <i class="fas fa-rocket mr-2"></i> Soluções Digitais de Alto Impacto
+                    </p>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-black orbitron mb-6 neon-text">
+                    LogiSync
+                </h1>
+                <h2 class="text-3xl md:text-5xl font-bold gradient-text mb-6">
+                    Transformamos ideias em resultados digitais reais
+                </h2>
+                <p class="text-xl md:text-2xl text-gray-300 mb-4">
+                    <span class="text-cyan-400 font-bold">Sua visão merece tecnologia de ponta.</span> Nós criamos, você cresce.
+                </p>
+                <p class="text-lg md:text-xl text-gray-400 mb-8">
+                    Soluções digitais personalizadas que <span class="text-green-400 font-bold">impulsionam seu negócio</span> para o próximo nível.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <button onclick="window.location.href='#servicos'" class="btn-primary">
+                        <i class="fas fa-rocket mr-2"></i> Conheça nossos serviços
+                    </button>
+                    <button onclick="window.location.href='#contato'" class="btn-secondary">
+                        <i class="fas fa-comments mr-2"></i> Fale com um especialista
+                    </button>
+                </div>
+                
+                <div class="inline-block bg-gradient-to-r from-cyan-500/20 to-green-500/20 border border-cyan-500 rounded-lg px-8 py-4 neon-border">
+                    <p class="text-lg font-semibold">
+                        ⚡ Não fique para trás. Inove hoje e conquiste o futuro.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-3xl text-cyan-400"></i>
+        </div>
+    </section>
+
+    <!-- Serviços Section -->
+    <section id="servicos" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title orbitron gradient-text">Soluções Digitais Completas</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Tecnologia de ponta para <span class="text-cyan-400 font-bold">impulsionar seu negócio</span> e criar vantagem competitiva no mercado digital
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Service Card 1 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Desenvolvimento de Software</h3>
+                    <p class="text-gray-300">Software sob medida que aumenta sua eficiência e impulsiona resultados extraordinários.</p>
+                </div>
+                
+                <!-- Service Card 2 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Aplicativos Android</h3>
+                    <p class="text-gray-300">Apps Android que conectam você ao seu público de forma única e inovadora.</p>
+                </div>
+                
+                <!-- Service Card 3 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Redes Sociais</h3>
+                    <p class="text-gray-300">Redes sociais que ampliam sua presença digital e engajam sua audiência.</p>
+                </div>
+                
+                <!-- Service Card 4 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Marketing Digital</h3>
+                    <p class="text-gray-300">Marketing Digital que gera vendas e resultados mensuráveis para o seu negócio.</p>
+                </div>
+                
+                <!-- Service Card 5 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Inteligência Artificial</h3>
+                    <p class="text-gray-300">IA aplicada a negócios para automatizar processos e gerar insights valiosos.</p>
+                </div>
+                
+                <!-- Service Card 6 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Automação de Processos</h3>
+                    <p class="text-gray-300">Automação inteligente que otimiza operações e reduz custos drasticamente.</p>
+                </div>
+                
+                <!-- Service Card 7 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-digital-tachograph"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Transformação Digital</h3>
+                    <p class="text-gray-300">Consultoria estratégica para liderar a revolução digital no seu mercado.</p>
+                </div>
+                
+                <!-- Service Card 8 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Segurança Cibernética</h3>
+                    <p class="text-gray-300">Proteção de ponta para blindar seus dados e sistemas contra ameaças.</p>
+                </div>
+                
+                <!-- Service Card 9 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Cloud Computing</h3>
+                    <p class="text-gray-300">Soluções em nuvem escaláveis e seguras para o futuro do seu negócio.</p>
+                </div>
+                
+                <!-- Service Card 10 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Integração de Sistemas</h3>
+                    <p class="text-gray-300">Conecte todas as suas ferramentas para uma operação fluida e eficiente.</p>
+                </div>
+                
+                <!-- Service Card 11 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">UX/UI Design</h3>
+                    <p class="text-gray-300">Experiências digitais memoráveis que encantam e convertem usuários.</p>
+                </div>
+                
+                <!-- Service Card 12 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Business Intelligence</h3>
+                    <p class="text-gray-300">Análise de dados que transforma informação em decisões estratégicas.</p>
+                </div>
+                
+                <!-- Service Card 13 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Chatbots e Assistentes</h3>
+                    <p class="text-gray-300">Atendimento automatizado 24/7 que aumenta satisfação e vendas.</p>
+                </div>
+                
+                <!-- Service Card 14 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Manutenção e Suporte</h3>
+                    <p class="text-gray-300">Suporte técnico especializado para manter seus sistemas sempre funcionando.</p>
+                </div>
+                
+                <!-- Service Card 15 -->
+                <div class="card-hover bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl neon-border">
+                    <div class="service-icon mb-4">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Soluções Personalizadas</h3>
+                    <p class="text-gray-300">Soluções digitais que transformam negócios e criam vantagem competitiva.</p>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button onclick="window.location.href='#contato'" class="btn-primary text-lg">
+                    <i class="fas fa-rocket mr-2"></i> Descubra como podemos ajudar sua empresa
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projetos Section -->
+    <section id="projetos" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title orbitron gradient-text">Portfólio de Projetos</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Conheça algumas das soluções que desenvolvemos para <span class="text-cyan-400 font-bold">transformar negócios</span> com tecnologia
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Project 1 -->
+                <div class="card-hover bg-gray-800 rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+                        <i class="fas fa-shopping-cart text-7xl text-white opacity-50"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-cyan-400">E-commerce Inteligente</h3>
+                        <p class="text-gray-300 mb-4">Plataforma de vendas com IA que aumentou conversões em 340%</p>
+                        <div class="flex items-center text-green-400">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            <span class="font-semibold">+340% de conversões</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="card-hover bg-gray-800 rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
+                        <i class="fas fa-hospital text-7xl text-white opacity-50"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-cyan-400">Sistema de Saúde Digital</h3>
+                        <p class="text-gray-300 mb-4">App médico que otimizou 85% dos processos administrativos</p>
+                        <div class="flex items-center text-green-400">
+                            <i class="fas fa-clock mr-2"></i>
+                            <span class="font-semibold">85% mais eficiência</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="card-hover bg-gray-800 rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-7xl text-white opacity-50"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-cyan-400">Plataforma EAD Gamificada</h3>
+                        <p class="text-gray-300 mb-4">Solução educacional que triplicou o engajamento dos alunos</p>
+                        <div class="flex items-center text-green-400">
+                            <i class="fas fa-users mr-2"></i>
+                            <span class="font-semibold">+300% engajamento</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="card-hover bg-gray-800 rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+                        <i class="fas fa-truck text-7xl text-white opacity-50"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-cyan-400">Logística Automatizada</h3>
+                        <p class="text-gray-300 mb-4">Sistema IoT que reduziu custos operacionais em 60%</p>
+                        <div class="flex items-center text-green-400">
+                            <i class="fas fa-dollar-sign mr-2"></i>
+                            <span class="font-semibold">-60% custos</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="card-hover bg-gray-800 rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                        <i class="fas fa-building text-7xl text-white opacity-50"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-cyan-400">ERP Corporativo</h3>
+                        <p class="text-gray-300 mb-4">Integração completa que unificou 15 sistemas em uma plataforma</p>
+                        <div class="flex items-center text-green-400">
+                            <i class="fas fa-link mr-2"></i>
+                            <span class="font-semibold">15 sistemas integrados</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="card-hover bg-gray-800 rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center">
+                        <i class="fas fa-robot text-7xl text-white opacity-50"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-cyan-400">Chatbot Inteligente</h3>
+                        <p class="text-gray-300 mb-4">Assistente virtual que atende 10.000+ clientes mensalmente</p>
+                        <div class="flex items-center text-green-400">
+                            <i class="fas fa-comment-dots mr-2"></i>
+                            <span class="font-semibold">10k+ atendimentos/mês</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button onclick="window.location.href='#contato'" class="btn-secondary text-lg">
+                    <i class="fas fa-eye mr-2"></i> Veja mais projetos de sucesso
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diferenciais Section -->
+    <section id="sobre" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title orbitron gradient-text">Por que escolher a LogiSync?</h2>
+                <p class="text-2xl text-gray-300 max-w-4xl mx-auto font-semibold">
+                    Na LogiSync, não entregamos apenas tecnologia. Entregamos vantagem competitiva.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Diferencial 1 -->
+                <div class="text-center p-8 bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl neon-border card-hover">
+                    <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center neon-glow">
+                        <i class="fas fa-rocket text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-cyan-400">Inovação Constante</h3>
+                    <p class="text-gray-300 text-lg">Tecnologia de ponta e metodologias ágeis para manter você à frente da concorrência.</p>
+                </div>
+                
+                <!-- Diferencial 2 -->
+                <div class="text-center p-8 bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl neon-border card-hover">
+                    <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center neon-glow">
+                        <i class="fas fa-puzzle-piece text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-cyan-400">Personalização Total</h3>
+                    <p class="text-gray-300 text-lg">Cada solução é única e desenvolvida especificamente para as necessidades do seu negócio.</p>
+                </div>
+                
+                <!-- Diferencial 3 -->
+                <div class="text-center p-8 bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl neon-border card-hover">
+                    <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center neon-glow">
+                        <i class="fas fa-heart text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-cyan-400">Comprometimento Total</h3>
+                    <p class="text-gray-300 text-lg">Dedicação absoluta ao sucesso do seu projeto, do primeiro código à entrega final.</p>
+                </div>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="text-center p-6 bg-cyan-500/10 rounded-xl border border-cyan-500">
+                    <div class="text-4xl font-black orbitron gradient-text mb-2">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="text-gray-300">Compromisso com Qualidade</div>
+                </div>
+                <div class="text-center p-6 bg-cyan-500/10 rounded-xl border border-cyan-500">
+                    <div class="text-4xl font-black orbitron gradient-text mb-2">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="text-gray-300">Suporte Dedicado</div>
+                </div>
+                <div class="text-center p-6 bg-cyan-500/10 rounded-xl border border-cyan-500">
+                    <div class="text-4xl font-black orbitron gradient-text mb-2">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="text-gray-300">Segurança Garantida</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato Section -->
+    <section id="contato" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title orbitron gradient-text">Entre em Contato</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Pronto para <span class="text-cyan-400 font-bold">transformar seu negócio</span> com tecnologia? Fale conosco e descubra como podemos ajudar
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="flex items-start space-x-4 p-6 bg-gray-800 rounded-xl neon-border card-hover">
+                        <div class="text-3xl text-cyan-400">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-cyan-400">Website</h3>
+                            <a href="https://logisyncbr.github.io/x" target="_blank" class="text-gray-300 hover:text-cyan-400 transition">
+                                logisyncbr.github.io/x
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 p-6 bg-gray-800 rounded-xl neon-border card-hover">
+                        <div class="text-3xl text-green-400">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-cyan-400">WhatsApp / Telefone</h3>
+                            <a href="https://wa.me/5548999097083" target="_blank" class="text-gray-300 hover:text-green-400 transition">
+                                +55 (48) 99909-7083
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 p-6 bg-gray-800 rounded-xl neon-border card-hover">
+                        <div class="text-3xl text-cyan-400">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-cyan-400">E-mail</h3>
+                            <a href="mailto:logisync.br@proton.me" class="text-gray-300 hover:text-cyan-400 transition">
+                                logisync.br@proton.me
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 bg-gradient-to-br from-cyan-500/20 to-green-500/20 rounded-xl border-2 border-cyan-500 neon-glow">
+                        <p class="text-lg font-semibold text-center">
+                            <i class="fas fa-clock mr-2"></i>
+                            Respondemos em até 2 horas!
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="bg-gray-800 p-8 rounded-xl neon-border">
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-cyan-400">Nome Completo</label>
+                            <input type="text" required placeholder="Seu nome" class="w-full">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-cyan-400">E-mail</label>
+                            <input type="email" required placeholder="seu@email.com" class="w-full">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-cyan-400">Telefone</label>
+                            <input type="tel" placeholder="(48) 99999-9999" class="w-full">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-cyan-400">Mensagem</label>
+                            <textarea rows="5" required placeholder="Conte-nos sobre seu projeto..." class="w-full"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary w-full text-lg">
+                            <i class="fas fa-paper-plane mr-2"></i> Comece sua transformação digital agora
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-cyan-500/20 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-green-400 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl font-black orbitron text-gray-900">LS</span>
+                        </div>
+                        <span class="text-2xl font-black orbitron gradient-text">LogiSync</span>
+                    </div>
+                    <p class="text-gray-400">
+                        A tecnologia que conecta você ao sucesso.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-cyan-400">Links Rápidos</h4>
+                    <div class="space-y-2">
+                        <a href="#home" class="block text-gray-400 hover:text-cyan-400 transition">Home</a>
+                        <a href="#servicos" class="block text-gray-400 hover:text-cyan-400 transition">Serviços</a>
+                        <a href="#projetos" class="block text-gray-400 hover:text-cyan-400 transition">Projetos</a>
+                        <a href="#sobre" class="block text-gray-400 hover:text-cyan-400 transition">Sobre Nós</a>
+                        <a href="#contato" class="block text-gray-400 hover:text-cyan-400 transition">Contato</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-cyan-400">Siga-nos</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center hover:bg-cyan-500/40 transition neon-border">
+                            <i class="fab fa-linkedin text-xl text-cyan-400"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center hover:bg-cyan-500/40 transition neon-border">
+                            <i class="fab fa-instagram text-xl text-cyan-400"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center hover:bg-cyan-500/40 transition neon-border">
+                            <i class="fab fa-github text-xl text-cyan-400"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-cyan-500/20 pt-8 text-center">
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 mb-4">
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition">Política de Privacidade</a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition">Termos de Uso</a>
+                </div>
+                <p class="text-gray-400">
+                    © 2024 LogiSync. Todos os direitos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+        
+        // Particles animation
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 3 + 1 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+            this.reset();
+        });
+        
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Header scroll effect
+        let lastScroll = 0;
+        const header = document.querySelector('.header-sticky');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.boxShadow = '0 10px 30px rgba(0, 245, 255, 0.2)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
